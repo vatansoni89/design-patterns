@@ -7,9 +7,9 @@ using WonderTools.VendorContract;
 
 namespace MyCarBootstrap
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -29,8 +29,8 @@ namespace MyCarBootstrap
 
             var simulator = new CarSpeedSimulator();
             var speedometer = new Speedometer(simulator);
-            
-            IAlarm alarm = new Alarm();
+
+            IAlarm alarm = carType == "normal1" ? (IAlarm)new Alarm() : new FreecolAlarm();
             var speedAlarm = new SpeedAlarm(alarm, speedometer);
             var seatBelt = new SeatBelt(alarm, speedometer);
 
